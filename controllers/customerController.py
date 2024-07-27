@@ -6,6 +6,8 @@ from marshmallow import ValidationError
 
 from caching import cache
 
+from utils.util import token_required, role_required
+
 def save():
     try:
         customer_data = customer_schema.load(request.json)
@@ -21,6 +23,8 @@ def save():
 
 
 @cache.cached(timeout=60)
+@token_required
+@role_required('admin')
 def find_all():
     customers = customerService.find_all()
     return customer_schema.jsonify(customers), 200

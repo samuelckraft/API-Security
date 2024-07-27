@@ -6,7 +6,7 @@ from marshmallow import ValidationError
 
 from caching import cache
 
-# POST request
+
 def save():
     try:
         employee_data = employee_schema.load(request.json)
@@ -25,3 +25,19 @@ def save():
 def find_all():
     employees = employeeService.find_all()
     return employee_schema.jsonify(employees), 200
+
+def login():
+    employee = request.json
+
+    user = employeeService.login_employee(employee['username'], employee['password'])
+
+    if user:
+        return jsonify(user), 200
+    
+    else:
+        resp = {
+            'status': 'Error',
+            'message': "User does not exist"
+        }
+
+        return jsonify(resp), 404

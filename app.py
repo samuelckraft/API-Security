@@ -2,13 +2,6 @@ from flask import Flask
 from database import db
 from schema import ma
 
-from models.customer import Customer
-from models.employee import Employee
-from models.product import Product
-from models.order import Order
-from models.production import Production
-
-
 from routes.customerBP import customer_blueprint
 from routes.employeeBP import employee_blueprint
 from routes.productBP import product_blueprint
